@@ -1,0 +1,15 @@
+/* 页面淡入淡出且轻微位移 */
+.page-enter-active,
+.page-leave-active {
+	transition: all 0.3s ease;
+}
+
+.page-enter-from {
+	opacity: 0;
+	transform: translateY(10px); /* 从下方一点点浮现 */
+}
+
+.page-leave-to {
+	opacity: 0;
+	transform: translateY(-10px); /* 向上方一点点消失 */
+}
