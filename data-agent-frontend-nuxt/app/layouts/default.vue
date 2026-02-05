@@ -34,23 +34,31 @@
 							<v-list-item
 								prepend-icon="mdi-chat-processing-outline"
 								title="数据问答"
-								@click="navigateToPath('/chat')"
 								:active="isActive('/chat')"
 								class="rounded-lg mb-1 navigation-item"
 								color="primary"
+								@click="navigateToPath('/chat')"
 							/>
 							<v-list-item
 								prepend-icon="mdi-chart-box-outline"
-								title="数据看板"
-								@click="navigateToPath('/dashboard')"
 								:active="isActive('/dashboard')"
 								class="rounded-lg mb-1 navigation-item"
 								color="primary"
+								title="数据看板"
+								@click="navigateToPath('/dashboard')"
+							/>
+							<v-list-item
+								prepend-icon="mdi-auto-fix"
+								:active="isActive('/prompt-config')"
+								class="rounded-lg mb-1 navigation-item"
+								color="primary"
+								title="提示词配置"
+								@click="navigateToPath('/prompt-config')"
 							/>
 
 							<!-- 知识库管理 (可折叠) -->
 							<v-list-group value="knowledge">
-								<template v-slot:activator="{ props }">
+								<template #activator="{ props }">
 									<v-list-item
 										v-bind="props"
 										title="知识库管理"
@@ -60,32 +68,32 @@
 								<v-list-item
 									prepend-icon="mdi-book-open-variant"
 									title="业务知识配置"
-									@click="navigateToPath('/knowledge/business')"
 									:active="isActive('/knowledge/business')"
 									density="compact"
 									class="rounded-lg mb-1 navigation-sub-item"
+									@click="navigateToPath('/knowledge/business')"
 								/>
 								<v-list-item
 									prepend-icon="mdi-brain"
 									title="智能体知识库"
-									@click="navigateToPath('/knowledge/agents')"
 									:active="isActive('/knowledge/agents')"
 									density="compact"
 									class="rounded-lg mb-1 navigation-sub-item"
+									@click="navigateToPath('/knowledge/agents')"
 								/>
 								<v-list-item
 									prepend-icon="mdi-vector-intersection"
 									title="语义模型配置"
-									@click="navigateToPath('/knowledge/semantic-models')"
 									:active="isActive('/knowledge/semantic-models')"
 									density="compact"
 									class="rounded-lg mb-1 navigation-sub-item"
+									@click="navigateToPath('/knowledge/semantic-models')"
 								/>
 							</v-list-group>
 
 							<!-- 系统管理 (可折叠) -->
 							<v-list-group value="system">
-								<template v-slot:activator="{ props }">
+								<template #activator="{ props }">
 									<v-list-item
 										v-bind="props"
 										title="系统管理"
@@ -95,39 +103,39 @@
 								<v-list-item
 									prepend-icon="mdi-database-refresh-outline"
 									title="数据连接"
-									@click="navigateToPath('/system/data-sources')"
 									:active="isActive('/system/data-sources')"
 									density="compact"
 									class="rounded-lg mb-1 navigation-sub-item"
+									@click="navigateToPath('/system/data-sources')"
 								/>
 								<v-list-item
 									prepend-icon="mdi-cpu-64-bit"
 									title="模型配置"
-									@click="navigateToPath('/system/model-config')"
 									:active="isActive('/system/models')"
 									density="compact"
 									class="rounded-lg mb-1 navigation-sub-item"
+									@click="navigateToPath('/system/model-config')"
 								/>
 								<v-list-item
 									prepend-icon="mdi-cog-outline"
 									title="通用设置"
-									@click="navigateToPath('/system/settings')"
 									:active="isActive('/system/settings')"
 									density="compact"
 									class="rounded-lg mb-1 navigation-sub-item"
+									@click="navigateToPath('/system/settings')"
 								/>
 							</v-list-group>
 
 							<!-- 新建智能体 分组 -->
 							<div class="mt-6 pt-4 border-t border-white/5">
 								<v-list-item
-									@click="navigateToPath('/agents/new')"
 									:active="isActive('/agents/new')"
 									variant="flat"
 									class="rounded-xl mx-2 shadow-lg bg-blue-grey-darken-4"
 									color="white"
+									@click="navigateToPath('/agents/new')"
 								>
-									<template v-slot:prepend
+									<template #prepend
 										><v-icon icon="mdi-plus-box-outline" class="mr-3"></v-icon
 									></template>
 									<v-list-item-title class="font-weight-bold text-caption"
@@ -146,7 +154,7 @@
 								class="text-none justify-start px-2 d-flex align-center"
 								@click="logout"
 							>
-								<template v-slot:prepend>
+								<template #prepend>
 									<v-avatar size="24" color="grey-darken-3" class="mr-2"
 										><v-icon icon="mdi-account" size="14"></v-icon
 									></v-avatar>
@@ -161,7 +169,7 @@
 
 				<!-- Header Area with Toggle -->
 				<template #header="{ toggle, isOpen }">
-					<v-btn icon variant="text" size="small" @click="toggle" class="mr-2">
+					<v-btn icon variant="text" size="small" class="mr-2" @click="toggle">
 						<v-icon :icon="isOpen ? 'mdi-menu-open' : 'mdi-menu'"></v-icon>
 					</v-btn>
 					<div class="text-subtitle-1 font-weight-medium text-grey-darken-3">
@@ -199,7 +207,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import BaseDrawer from '../components/BaseDrawer.vue';
-const { dialogState } = useConfirm();
+const { dialogState, handleGlobalConfirm } = useConfirm();
 
 const drawer = ref(true);
 const router = useRouter();
@@ -208,6 +216,7 @@ const route = useRoute();
 const routeTitleMap: Record<string, string> = {
 	'/chat': '数据问答',
 	'/dashboard': '数据看板',
+	'/prompt-config': '提示词配置',
 	'/knowledge/business': '业务知识配置',
 	'/knowledge/agents': '智能体知识库',
 	'/knowledge/semantic-models': '语义模型配置',
