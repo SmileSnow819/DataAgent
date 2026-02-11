@@ -1,24 +1,37 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
-
-# Node dependencies
-node_modules
-
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Misc
+# OS metadata
 .DS_Store
-.fleet
-.idea
+Thumbs.db
 
-# Local env files
+# Node
+node_modules/
+dist/
+.npm
+.pnpm-store
+
+# Nuxt
+.nuxt/
+.output/
 .env
-.env.*
-!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.history/
+
+# Cursor
+.cursor/
+
+# AI Generated Context (READMEs in components/composables/services are auto-generated)
+# 如果你希望将生成的 README 也提交到 Git（如你之前的规划），可以不忽略它们。
+# 但通常 node_modules 和构建产物是必须忽略的。

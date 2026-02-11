@@ -496,8 +496,8 @@
 import { ref, reactive, computed, watch, onMounted } from 'vue';
 import type { VForm } from 'vuetify/components';
 import datasourceService, { type Datasource, type LogicalRelation } from '@/services/datasource';
-import { useTipStore } from '@/stores/tips';
-import { showConfirm } from '@/composables/useConfirm';
+import { useTipStore } from '~/stores/tips';
+import { showConfirm } from '~/composables/useConfirm/useConfirm';
 
 const tipStore = useTipStore();
 const loading = ref(false);

@@ -1,4 +1,4 @@
-import { useTipStore } from '@/stores/tips';
+import { useTipStore } from '~/stores/tips';
 
 export default defineNuxtPlugin(() => {
 	const tipStore = useTipStore();

@@ -7,7 +7,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "gen:ctx": "node scripts/gen-ai-context.mjs"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.13.0",
@@ -24,6 +25,10 @@
     "vuetify-nuxt-module": "0.19.5"
   },
   "devDependencies": {
-    "typescript": "^5.9.3"
+    "crypto": "^1.0.1",
+    "globby": "^16.1.0",
+    "ts-morph": "^27.0.2",
+    "typescript": "^5.9.3",
+    "vue-docgen-api": "^4.79.2"
   }
 }

@@ -206,7 +206,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import BaseDrawer from '../components/BaseDrawer.vue';
+import BaseDrawer from '../components/BaseDrawer/index.vue';
 const { dialogState, handleGlobalConfirm } = useConfirm();
 
 const drawer = ref(true);

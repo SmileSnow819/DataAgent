@@ -1,0 +1,48 @@
+# DataAgent (Nuxt 4 SPA + TypeScript) 开发法则
+
+## 0. 关键上下文 (最高优先级)
+- **框架**: Nuxt 4 (基于 Nitro 引擎)。
+- **包管理器**: pnpm (必须使用 `pnpm install`, `pnpm add` 等)。
+- **模式**: 纯 SPA 模式 (`ssr: false`)。
+- **语言**: TypeScript (严格模式)。**严禁**使用 `.js` 文件。
+- **UI 库**: Vuetify 3 (必须使用 `<v-btn>` 等组件，而非原生 `<div>`)。
+
+## 1. 知识检索协议 (Knowledge Retrieval)
+在回答问题或编写代码之前，必须执行以下步骤：
+1. **框架层**: 涉及 Nuxt 核心 (如 Nitro, Composables) **必须**优先参考 `@Nuxt4` 文档。
+2. **地图加载 (Map Loading)**: 
+    - 涉及新功能开发时，先检索 `components/README.md` 或 `composables/README.md` (全局索引)。
+3. **本地上下文 (Local Context)**:
+    - 修改现有组件或逻辑前，**必须读取**该目录下自动生成的 `README.md` (技能卡片/Skill Card)。
+4. **查重机制 (Similarity Check)**:
+    - **原则**: "先存在，后创建" (Exist before Create)。
+    - 如果发现已存在类似功能的代码，**必须**优先考虑复用，而不是新建。
+5. **类型定义**: 优先引用 `types/` 或同级目录下的 `.ts` 定义，**禁止**凭空猜测数据结构。
+
+## 2. 编码规范 (Coding Standards)
+- **严格 TypeScript**: 所有变量、参数、返回值必须有明确的类型定义，**禁止**使用 `any`。
+- **文档先行 (Documentation First)**: 生成代码时，必须包含标准的 JSDoc/TSDoc 注释。
+    - **组件**: `<script setup>` 顶部需包含 `@description` 说明组件用途。
+    - **Props**: `defineProps` 上方需说明每个属性的业务含义。
+    - **逻辑**: 所有函数必须包含 `@param` 和 `@returns` 说明。
+    - **架构结构**:
+        - **公共组件**: 所有公共组件**必须**存放在 `app/components/common/` 目录下。
+        - **API**: 统一使用 Axios，所有服务层代码必须存放在 `app/services/`。
+        - **风格**: 必须使用 Vue 3 组合式 API (`<script setup lang="ts">`)。
+
+## 3. 复用与重构策略 (Reuse & Refactor)
+- **DRY 原则 (拒绝重复)**:
+    - **禁止**生成重复的工具函数或极其相似的 UI 组件。
+    - 如果发现现有组件/函数满足当前 **80%** 的需求，**严禁**复制一份代码进行修改。
+- **多态扩展 (Polymorphic Extension)**:
+    - **方案**: 通过增加 **可选属性 (Optional Props)**、**泛型 (Generics)** 或 **回调策略** 来扩展现有组件/函数，使其适应新需求。
+- **安全护栏 (Guardrail)**: 
+    - 重构时必须保证 **向后兼容性 (Backward Compatibility)**。
+    - *示例*: 原函数 `fetchData(id)` -> 新需求需要额外参数 -> 改为 `fetchData(id, options?)`。**禁止**直接修改必填参数导致旧的调用方报错。
+- **重构触发器**:
+    - 当你发现自己在“复制粘贴”代码时，**立即停止**。改为将公共逻辑提取到 `composables/` 或 `utils/` 中，并更新原来的引用。
+
+## 4. 协作协议
+- **禁止**手动修改 `README.md`，文档全权由自动化脚本生成。
+- 提交代码前，必须确保通过 TypeScript 类型检查 (无 Type Error)。
+- 提交代码前，建议运行 `pnpm gen:ctx` 同步 AI 上下文。
