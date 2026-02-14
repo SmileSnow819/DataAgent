@@ -146,23 +146,26 @@
 						</v-list>
 
 						<!-- 底部用户信息 -->
-						<div class="pa-4 border-t border-white/5">
-							<v-btn
-								block
-								variant="text"
+						<div class="pa-2 border-t border-white/5">
+							<v-list-item
+								class="rounded-lg navigation-item logout-item"
 								color="red-lighten-2"
-								class="text-none justify-start px-2 d-flex align-center"
 								@click="logout"
 							>
 								<template #prepend>
-									<v-avatar size="24" color="grey-darken-3" class="mr-2"
-										><v-icon icon="mdi-account" size="14"></v-icon
-									></v-avatar>
+									<v-avatar size="24" color="grey-darken-3">
+										<v-icon icon="mdi-account" size="14" color="white"></v-icon>
+									</v-avatar>
 								</template>
-								<div class="text-caption font-weight-bold">root</div>
-								<v-spacer></v-spacer>
-								<v-icon icon="mdi-logout" size="16"></v-icon>
-							</v-btn>
+
+								<v-list-item-title class="text-caption font-weight-bold ms-2">
+									root
+								</v-list-item-title>
+
+								<template #append>
+									<v-icon icon="mdi-logout" size="24" color="red"></v-icon>
+								</template>
+							</v-list-item>
 						</div>
 					</div>
 				</template>

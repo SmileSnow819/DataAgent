@@ -6,10 +6,20 @@ export default defineNuxtConfig({
 	//基于组件名称自动导入
 	components: [
 		{
-			path: '~/components',
-			pathPrefix: false,
+			path: '~/components', // 扫描 components 目录
+			extensions: ['.vue'], // 确保只扫描 .vue 文件
+			pathPrefix: false, // 禁用文件夹路径前缀
 		},
 	],
+	imports: {
+		dirs: [
+			// 递归扫描所有的 index.ts，这样文件夹名就是函数名
+			'composables/**/index.ts',
+			'app/services/**/index.ts', // 匹配你规范中的 app/services/
+			'composables/*.ts',
+			'app/services/*.ts',
+		],
+	},
 	//全局关闭ssr
 	ssr: false,
 	// /路由重定向到/create-agent
@@ -19,6 +29,7 @@ export default defineNuxtConfig({
 		'/api/**': { proxy: 'http://localhost:8065/api/**' },
 		'/nl2sql/**': { proxy: 'http://localhost:8065/nl2sql/**' },
 	},
+	//全局动画配置
 	app: {
 		pageTransition: { name: 'page', mode: 'out-in' },
 	},
