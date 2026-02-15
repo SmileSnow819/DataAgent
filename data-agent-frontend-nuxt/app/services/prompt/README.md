@@ -1,4 +1,4 @@
-# 逻辑模块: index.ts
+# 逻辑模块: prompt
 
 ## 模块描述
 提示词配置管理服务，处理优化提示词的查询、保存、启用/禁用及优先级调整
@@ -19,7 +19,6 @@
 ## 导出变量 (Variables/Stores)
 ### `promptService`
 - **描述**: 无描述
-- **类型**: `PromptService`
 
 ## 类型定义 (Interfaces)
 ### `PromptConfig`
@@ -64,4 +63,4 @@ export interface PromptConfigResponse {
 
 
 ---
-> 🤖 AI 提示: 逻辑实现请参考 `index.ts`。
+> 🤖 AI 提示: 逻辑实现请参考 `prompt/index.ts`。

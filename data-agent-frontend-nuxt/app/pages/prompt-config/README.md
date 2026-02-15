@@ -1,5 +1,8 @@
-# 组件: prompt-config
+# 目录索引: prompt-config
 
+> 🤖 自动生成，请勿手动修改。此文件为 AI 提供模块地图。
 
----
-> 🤖 AI 提示: 修改此组件前请阅读上述定义。代码位于 `index.vue`。
+## 文件
+
+- index.vue
+

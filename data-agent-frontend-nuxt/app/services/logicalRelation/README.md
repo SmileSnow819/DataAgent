@@ -1,4 +1,4 @@
-# 逻辑模块: index.ts
+# 逻辑模块: logicalRelation
 
 ## 模块描述
 逻辑外键管理服务，处理数据源表之间的关联关系定义及字段同步
@@ -46,4 +46,4 @@ export interface LogicalRelation {
 
 
 ---
-> 🤖 AI 提示: 逻辑实现请参考 `index.ts`。
+> 🤖 AI 提示: 逻辑实现请参考 `logicalRelation/index.ts`。

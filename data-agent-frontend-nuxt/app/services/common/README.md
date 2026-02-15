@@ -1,4 +1,4 @@
-# 逻辑模块: index.ts
+# 逻辑模块: common
 
 ## 模块描述
 通用 API 响应结构定义
@@ -40,4 +40,4 @@ export interface PageResponse<T = unknown> {
 
 
 ---
-> 🤖 AI 提示: 逻辑实现请参考 `index.ts`。
+> 🤖 AI 提示: 逻辑实现请参考 `common/index.ts`。

@@ -1,8 +1,8 @@
-# APP/SERVICES 索引
+# 目录索引: services
 
 > 🤖 自动生成，请勿手动修改。此文件为 AI 提供模块地图。
 
-## 模块列表
+## 子目录
 
 - [agent](./agent/README.md)
 - [agentDatasource](./agentDatasource/README.md)

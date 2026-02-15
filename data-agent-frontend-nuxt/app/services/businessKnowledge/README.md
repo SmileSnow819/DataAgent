@@ -1,4 +1,4 @@
-# 逻辑模块: index.ts
+# 逻辑模块: businessKnowledge
 
 ## 模块描述
 业务术语知识管理服务，处理业务词汇的增删改查、召回设置及向量同步
@@ -78,4 +78,4 @@ export interface UpdateBusinessKnowledgeDTO {
 
 
 ---
-> 🤖 AI 提示: 逻辑实现请参考 `index.ts`。
+> 🤖 AI 提示: 逻辑实现请参考 `businessKnowledge/index.ts`。

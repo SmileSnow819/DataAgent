@@ -27,12 +27,19 @@ function getDocDescription(node) {
   return description.replace(/^\s*\*\s?/gm, '').trim();
 }
 
+/**
+ * @description 生成 TypeScript 逻辑模块的 AI 文档
+ */
 export async function generateLogicDocs(filePath) {
   const sourceFile = project.addSourceFileAtPath(filePath);
   const dir = path.dirname(filePath);
+  const folderName = path.basename(dir);
   const fileName = path.basename(filePath);
+  
+  // 如果文件名是 index.ts，则使用文件夹名作为模块名
+  const name = fileName === 'index.ts' ? folderName : fileName;
 
-  let markdown = `# 逻辑模块: ${fileName}\n\n`;
+  let markdown = `# 逻辑模块: ${name}\n\n`;
 
   // 1. 提取文件级描述
   let fileDocs = '';
@@ -97,11 +104,6 @@ export async function generateLogicDocs(filePath) {
       const docs = getDocDescription(v);
       v.getDeclarations().forEach(decl => {
         markdown += `### \`${decl.getName()}\`\n- **描述**: ${docs || '无描述'}\n`;
-        const initializer = decl.getInitializer();
-        if (initializer) {
-          // 如果是 defineStore 或 defineNuxtComposable 等，尝试提取其类型信息
-          markdown += `- **类型**: \`${initializer.getType().getText().substring(0, 100)}${initializer.getType().getText().length > 100 ? '...' : ''}\`\n`;
-        }
         markdown += '\n';
       });
     });
@@ -117,10 +119,10 @@ export async function generateLogicDocs(filePath) {
     });
   }
 
-  markdown += `\n---\n> 🤖 AI 提示: 逻辑实现请参考 \`${fileName}\`。`;
+  markdown += `\n---\n> 🤖 AI 提示: 逻辑实现请参考 \`${path.join(folderName, fileName)}\`。`;
 
   await fs.writeFile(path.join(dir, 'README.md'), markdown);
-  console.log(`  - [Logic] 已更新: ${fileName}`);
+  console.log(`  - [Logic] 已更新: ${name}`);
   
   // 释放内存
   project.removeSourceFile(sourceFile);

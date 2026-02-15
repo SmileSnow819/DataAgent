@@ -1,4 +1,4 @@
-# 逻辑模块: index.ts
+# 逻辑模块: modelConfig
 
 ## 模块描述
 模型配置管理服务，处理 LLM 供应商信息、API 密钥、模型参数及就绪状态检查
@@ -60,4 +60,4 @@ export interface ModelCheckReady {
 
 
 ---
-> 🤖 AI 提示: 逻辑实现请参考 `index.ts`。
+> 🤖 AI 提示: 逻辑实现请参考 `modelConfig/index.ts`。

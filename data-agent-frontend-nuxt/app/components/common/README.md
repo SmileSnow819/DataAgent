@@ -1,9 +1,9 @@
-# 目录索引: components
+# 目录索引: common
 
 > 🤖 自动生成，请勿手动修改。此文件为 AI 提供模块地图。
 
 ## 子目录
 
-- [BaseDrawer](./BaseDrawer/README.md)
-- [common](./common/README.md)
+- [ConfirmDialog](./ConfirmDialog/README.md)
+- [Tip](./Tip/README.md)
 
