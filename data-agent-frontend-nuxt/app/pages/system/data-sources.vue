@@ -28,6 +28,17 @@
 				>
 					添加数据源
 				</v-btn>
+				<v-btn
+					v-if="agentId"
+					color="primary"
+					prepend-icon="mdi-upload"
+					class="text-none px-6"
+					elevation="0"
+					:loading="initStatus"
+					@click="handleInitDatasource"
+				>
+					{{ initStatus ? '初始化中...' : '初始化数据源' }}
+				</v-btn>
 			</div>
 		</header>
 
@@ -41,6 +52,11 @@
 				show-expand
 				hover
 				:loading="loading"
+				:items-per-page-options="[10, 25, 50, 100]"
+				:footer-props="{
+					'items-per-page-text': '每页显示：',
+					'page-text': '{0}-{1} 共 {2} 条',
+				}"
 			>
 				<!-- 自定义展开列：未启用或连接未成功时禁用 -->
 				<template
@@ -641,7 +657,10 @@ import datasourceService, {
 	type LogicalRelation,
 } from '@/services/datasource';
 import { useTipStore } from '~/stores/tips';
+import { useRoute } from 'vue-router';
+import agentDatasourceService from '@/services/agentDatasource';
 
+const route = useRoute();
 const tipStore = useTipStore();
 const loading = ref(false);
 const saving = ref(false);
@@ -655,6 +674,12 @@ const loadingTablesId = ref<number | null>(null);
 /** 记录获取表失败的数据源 ID */
 const tableFetchError = ref<Record<number, boolean>>({});
 const updatingTablesId = ref<number | null>(null);
+const initStatus = ref(false);
+/** 从路由参数获取 agentId */
+const agentId = computed(() => {
+	const id = route.params.agentId || route.query.agentId;
+	return id ? String(id) : null;
+});
 
 const dialog = reactive({
 	visible: false,
@@ -1097,6 +1122,47 @@ const updateTables = async (item: Datasource) => {
 		);
 	} finally {
 		updatingTablesId.value = null;
+	}
+};
+
+const handleInitDatasource = async () => {
+	if (!agentId.value) {
+		showTip('缺少智能体ID，无法初始化数据源', 'error');
+		return;
+	}
+	initStatus.value = true;
+	try {
+		// 先检查是否有启用的数据源
+		const activeRes = await agentDatasourceService.getActiveAgentDatasource(
+			agentId.value,
+		);
+		if (!activeRes.success || !activeRes.data) {
+			showTip('当前智能体没有启用的数据源！请先添加并启用数据源', 'error');
+			return;
+		}
+		const activeDatasource = activeRes.data;
+		if (
+			!activeDatasource.selectTables ||
+			activeDatasource.selectTables.length === 0
+		) {
+			showTip(
+				'当前启用的数据源没有选择相应的数据表！请先选择数据表并更新',
+				'error',
+			);
+			return;
+		}
+
+		// 执行初始化
+		const res = await agentDatasourceService.initSchema(agentId.value);
+		if (res.success) {
+			showTip('初始化数据源成功');
+		} else {
+			showTip(res.message || '初始化数据源失败', 'error');
+		}
+	} catch (error: any) {
+		showTip(error.message || '初始化数据源失败', 'error');
+	} finally {
+		initStatus.value = false;
 	}
 };
 

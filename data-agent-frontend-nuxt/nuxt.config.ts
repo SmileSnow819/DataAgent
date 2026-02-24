@@ -20,6 +20,13 @@ export default defineNuxtConfig({
 			'app/services/*.ts',
 		],
 	},
+	vuetify: {
+		vuetifyOptions: {
+			defaults: {
+				VBtn: { variant: 'outlined' },
+			},
+		},
+	},
 	//全局关闭ssr
 	ssr: false,
 	// /路由重定向到/create-agent
