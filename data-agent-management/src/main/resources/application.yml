@@ -1,6 +1,12 @@
 server:
   port: 8065
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
 # 存储 DataAgent 业务数据的数据库，并非Agent分析数据的来源
 spring:
   datasource:
@@ -11,7 +17,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   sql:
     init:
-      mode: never
+      mode: ${DATA_AGENT_DATASOURCE_SQL_INIT:never}
       schema-locations: classpath:sql/schema.sql
       data-locations: classpath:sql/data.sql
       continue-on-error: true
@@ -47,7 +53,7 @@ spring:
             bucket-name: ${OSS_BUCKET_NAME:}
             custom-domain: ${OSS_CUSTOM_DOMAIN:}
         max-sql-retry-count: 10
-  servlet:
+  webflux:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
