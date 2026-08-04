@@ -10,4 +10,5 @@
 ## 文件
 
 - useEchartsRenderer.ts
+- useTypewriter.ts
 

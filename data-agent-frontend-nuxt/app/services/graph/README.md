@@ -41,6 +41,12 @@ export interface GraphNodeResponse {
   agentId: string;
   /** 线程 ID */
   threadId: string;
+  /** 事件语义；历史消息可能不存在 */
+  eventType?: GraphEventType;
+  /** 单次节点执行 ID；历史消息可能不存在 */
+  stepId?: string;
+  /** 同名节点在本次运行中的执行次数 */
+  attempt?: number;
   /** 当前执行的节点名称 */
   nodeName: string;
   /** 文本内容类型 */

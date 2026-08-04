@@ -20,8 +20,10 @@ import fs from 'fs/promises';
 import crypto from 'crypto';
 import { generateComponentDocs } from './utils/ui-engine.mjs';
 import { generateLogicDocs } from './utils/logic-engine.mjs';
+import { buildCodebaseIndex } from './utils/index-engine.mjs';
 
 const CACHE_FILE = '.scripts/ai-gen-cache.json';
+const INDEX_FILE = '.scripts/codebase-index.json';
 
 /**
  * @description 获取文件的 MD5 哈希值
@@ -185,12 +187,19 @@ async function generateRecursiveIndex(dirPath, isPages = false) {
 			await generateRecursiveIndex(root.path, root.isPages);
 		}
 
+		console.log('  - 正在生成机器可读代码索引...');
+		const index = await buildCodebaseIndex({ outputPath: INDEX_FILE });
+
 		await saveCache(newCache);
 
 		if (updatedCount > 0) {
-			console.log(`✅ AI 上下文同步完成 (更新了 ${updatedCount} 个文件)`);
+			console.log(
+				`✅ AI 上下文同步完成 (更新了 ${updatedCount} 个文件，索引 ${index.stats.files} files / ${index.stats.chunks} chunks)`,
+			);
 		} else {
-			console.log('✨ 所有文档已是最新，无需更新');
+			console.log(
+				`✨ 所有 README 已是最新，代码索引已刷新 (${index.stats.files} files / ${index.stats.chunks} chunks)`,
+			);
 		}
 	} catch (error) {
 		console.error('❌ 同步失败:', error);

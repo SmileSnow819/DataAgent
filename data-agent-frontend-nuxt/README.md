@@ -49,7 +49,10 @@ pnpm build
 
 本项目引入了自动化的 AI 文档生成体系，确保 AI 能够精确理解代码逻辑：
 
-- **生成文档**: 运行 `pnpm gen:ctx` 自动提取 JSDoc/TSDoc 并生成模块 `README.md`。
+- **生成文档与索引**: 运行 `pnpm gen:ctx` 自动提取 JSDoc/TSDoc，生成模块 `README.md` 和 `.scripts/codebase-index.json`。
+- **检索上下文**: 运行 `pnpm ctx:search -- "问题"` 从本地索引中召回相关文件、组件和符号。
+- **评测报告**: 运行 `pnpm ctx:eval` 对比 README/路径基线与结构化索引增强效果，并生成 HTML 报告。
+- **LLM 评测**: 在 `.env` 配置 `DEEPSEEK_API_KEY` 后运行 `pnpm ctx:llm-eval`，真实调用模型对比 `LLM + grep` 与 `LLM + codebase search + grep` 的定位轮次、命中率和 API token 用量。
 - **规范**: 开发者需在代码中编写标准的 JSDoc 注释，详情请参考 [docs/CONTEXT_GOVERNANCE.md](./docs/CONTEXT_GOVERNANCE.md)。
 
 ## 🔄 Git 工作流与 Rebase 规范
@@ -91,7 +94,7 @@ pnpm build
 - **插槽语法**: 统一使用 `#slot` 简写，禁止使用 `v-slot:`。
 - **属性顺序**: `class` -> `其他属性` -> `v-if` -> `事件绑定 (@click)`。
 - **严格类型**: 严禁使用 `any`，所有变量和函数必须有明确类型定义。
-- **文档先行**: 修改或新增代码时，必须同步更新 JSDoc 并运行 `pnpm gen:ctx`。
+- **文档先行**: 修改或新增代码时，必须同步更新 JSDoc 并运行 `pnpm gen:ctx`，必要时用 `pnpm ctx:search -- "问题"` 验证索引召回效果。
 
 ---
 *Powered by DataAgent Team*

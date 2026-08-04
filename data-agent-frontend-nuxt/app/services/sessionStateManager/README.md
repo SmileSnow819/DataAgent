@@ -71,7 +71,7 @@
   const deleteSessionState = (sessionId: string) => {
     const state = sessionStates.value.get(sessionId);
     if (state?.closeStream) {
-      state.closeStream();
+      void state.closeStream(true);
     }
     sessionStates.value.delete(sessionId);
   };
@@ -110,7 +110,7 @@ export interface SessionRuntimeState {
   /** 图节点响应块列表 */
   nodeBlocks: GraphNodeResponse[][];
   /** 关闭流的回调函数 */
-  closeStream: (() => void) | null;
+  closeStream: ((cancelRun?: boolean) => Promise<void>) | null;
   /** 最后一次请求参数 */
   lastRequest: GraphRequest | null;
   /** HTML 报告内容 */

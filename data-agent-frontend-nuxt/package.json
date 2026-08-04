@@ -9,7 +9,10 @@
     "preview": "nuxt preview",
     "test:unit": "nuxt prepare && vitest run",
     "postinstall": "nuxt prepare",
-    "gen:ctx": "node scripts/gen-ai-context.mjs"
+    "gen:ctx": "node scripts/gen-ai-context.mjs",
+    "ctx:search": "node scripts/search-ai-context.mjs",
+    "ctx:eval": "node scripts/eval-ai-context.mjs",
+    "ctx:llm-eval": "node scripts/llm-eval-ai-context.mjs"
   },
   "dependencies": {
     "@nuxt/eslint": "^1.13.0",
